@@ -37,7 +37,7 @@ import java.util.Properties;
  */
 public class Main {
 
-    private static final int EMBEDDED_ES_INIT_TIME = 5000;
+    private static final int EMBEDDED_ES_INIT_TIME = 50000;
 
     public static void main(String[] args) throws Exception {
 
