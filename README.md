@@ -5,7 +5,7 @@
 
 [Getting Started](https://netflix.github.io/conductor/gettingstarted/basicconcepts/) guide.
 
-Run `./gradlew build -x test && docker-compose up -d` to start conductor locally
+Run `./gradlew build -x test && docker-compose -f docker/docker-compose.yaml up -d` to start conductor locally
 
 ## Get Conductor
 Binaries are available from Maven Central and jcenter.
