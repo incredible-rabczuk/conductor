@@ -33,8 +33,9 @@ public class ElasticSearchTransportClientProvider implements Provider<Client> {
     public Client get() {
 
         Settings settings = Settings.builder()
-                .put("client.transport.ignore_cluster_name", true)
-                .put("client.transport.sniff", true)
+                .put("cluster.name", configuration.getClusterName())
+                .put("client.transport.sniff", configuration.getSniffingEnabled())
+                .put("client.transport.ignore_cluster_name", configuration.getClusterNameIgnored())
                 .build();
 
         TransportClient tc = new PreBuiltTransportClient(settings);

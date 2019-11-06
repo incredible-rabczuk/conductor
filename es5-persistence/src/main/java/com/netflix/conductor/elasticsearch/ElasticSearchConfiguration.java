@@ -34,6 +34,15 @@ public interface ElasticSearchConfiguration extends Configuration {
     String ELASTIC_SEARCH_INDEX_NAME_PROPERTY_NAME = "workflow.elasticsearch.index.name";
     String ELASTIC_SEARCH_INDEX_NAME_DEFAULT_VALUE = "conductor";
 
+    String ELASTIC_SEARCH_CLUSTER_NAME_PROPERTY_NAME = "workflow.elasticsearch.cluster.name";
+    String ELASTIC_SEARCH_CLUSTER_NAME_DEFAULT_VALUE = "conductor-cluster";
+
+    String ELASTIC_SEARCH_SNIFFING_ENABLED_PROPERTY_NAME = "workflow.elasticsearch.sniffing.enabled";
+    boolean ELASTIC_SEARCH_SNIFFING_ENABLED_DEFAULT_VALUE = true;
+
+    String ELASTIC_SEARCH_CLUSTER_NAME_IGNORED_PROPERTY_NAME = "workflow.elasticsearch.cluster.name.ignored";
+    boolean ELASTIC_SEARCH_CLUSTER_NAME_IGNORED_DEFAULT_VALUE = true;
+
     String TASK_LOG_INDEX_NAME_PROPERTY_NAME = "workflow.elasticsearch.tasklog.index.name";
     String TASK_LOG_INDEX_NAME_DEFAULT_VALUE = "task_log";
 
@@ -83,6 +92,18 @@ public interface ElasticSearchConfiguration extends Configuration {
         return Arrays.stream(hosts).map( host ->
            (host.startsWith("http://") || host.startsWith("https://") || host.startsWith("tcp://")) ? URI.create(host) : URI.create("tcp://" + host)
         ).collect(Collectors.toList());
+    }
+
+    default String getClusterName() {
+        return getProperty(ELASTIC_SEARCH_CLUSTER_NAME_PROPERTY_NAME, ELASTIC_SEARCH_CLUSTER_NAME_DEFAULT_VALUE);
+    }
+
+    default boolean getSniffingEnabled() {
+        return getBooleanProperty(ELASTIC_SEARCH_SNIFFING_ENABLED_PROPERTY_NAME, ELASTIC_SEARCH_SNIFFING_ENABLED_DEFAULT_VALUE);
+    }
+
+    default boolean getClusterNameIgnored() {
+        return getBooleanProperty(ELASTIC_SEARCH_CLUSTER_NAME_IGNORED_PROPERTY_NAME, ELASTIC_SEARCH_CLUSTER_NAME_IGNORED_DEFAULT_VALUE);
     }
 
     default String getIndexName() {
