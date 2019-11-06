@@ -644,7 +644,7 @@ public class WorkflowExecutor {
                 parent.setStatus(WorkflowStatus.RUNNING);
                 executionDAOFacade.updateWorkflow(parent);
             }
-            decide(parent.getWorkflowId(), DeciderService.DecideType.PARENT_WORKFLOW_DECIDE);
+            decide(parent.getWorkflowId(), DeciderService.DecideType.PARENT_WORKFLOW_EVAL);
         }
         Monitors.recordWorkflowCompletion(workflow.getWorkflowName(), workflow.getEndTime() - workflow.getStartTime(), workflow.getOwnerApp());
         queueDAO.remove(DECIDER_QUEUE, workflow.getWorkflowId());    //remove from the sweep queue
@@ -708,7 +708,7 @@ public class WorkflowExecutor {
         // care of this again!
         if (workflow.getParentWorkflowId() != null) {
             Workflow parent = executionDAOFacade.getWorkflowById(workflow.getParentWorkflowId(), false);
-            decide(parent.getWorkflowId(), DeciderService.DecideType.PARENT_WORKFLOW_DECIDE);
+            decide(parent.getWorkflowId(), DeciderService.DecideType.PARENT_WORKFLOW_EVAL);
         }
 
         if (!StringUtils.isBlank(failureWorkflow)) {

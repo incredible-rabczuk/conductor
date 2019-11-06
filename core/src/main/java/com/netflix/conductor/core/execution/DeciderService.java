@@ -642,8 +642,8 @@ public class DeciderService {
      */
     public enum DecideType {
         SWEEP(0),
-        UPDATE_TASK(1),
-        PARENT_WORKFLOW_DECIDE(1);
+        UPDATE_TASK(50),    // In the range of Priority 0-99, keeping at median to avoid starvation by user provided priorities.
+        PARENT_WORKFLOW_EVAL(50);
 
         private final int priority;
 
